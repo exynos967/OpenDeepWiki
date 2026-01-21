@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER root
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Packages.props", "."]
@@ -26,17 +26,18 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./KoalaWiki.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM node:22-bullseye AS frontend-build
+FROM build AS frontend-build
 ENV ROLLUP_USE_NATIVE=false
-WORKDIR /app
-COPY web-site/ .
-WORKDIR "/app"
-RUN npm install
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends nodejs npm \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /src/web-site
+RUN npm ci
 RUN npm run build
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 # Copy built frontend files to wwwroot
-COPY --from=frontend-build /app/dist ./wwwroot
+COPY --from=frontend-build /src/web-site/dist ./wwwroot
 ENTRYPOINT ["dotnet", "KoalaWiki.dll"]

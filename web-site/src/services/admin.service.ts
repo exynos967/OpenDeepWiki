@@ -530,14 +530,23 @@ export const repositoryService = {
 // 保持向后兼容旧的仓库服务命名
 export const warehouseService = repositoryService
 
+const unwrapApiResponse = <T,>(response: any): T => {
+  if (response && typeof response === 'object' && 'data' in response) {
+    return (response as any).data as T
+  }
+  return response as T
+}
+
 // 系统设置管理API
 export const systemSettingsService = {
   // 获取所有系统设置分组
   getSettingGroups: async (): Promise<SystemSettingGroup[]> => {
     try {
       const response = await request.get<any>('/api/SystemSetting/groups')
+      const data = unwrapApiResponse<any>(response)
 
-      return response.data.map((group: any) => ({
+      const groups = Array.isArray(data) ? data : []
+      return groups.map((group: any) => ({
         group: group.group || '',
         settings: Array.isArray(group.settings) ? group.settings : []
       }))
@@ -550,8 +559,9 @@ export const systemSettingsService = {
   // 根据分组获取系统设置
   getSettingsByGroup: async (group: string): Promise<SystemSetting[]> => {
     try {
-      const response = await request.get<SystemSetting[]>(`/api/SystemSetting/group/${group}`)
-      return Array.isArray(response) ? response : []
+      const response = await request.get<any>(`/api/SystemSetting/group/${group}`)
+      const data = unwrapApiResponse<any>(response)
+      return Array.isArray(data) ? data : []
     } catch (error) {
       console.error(`Failed to load settings for group ${group}:`, error)
       return []
@@ -561,7 +571,9 @@ export const systemSettingsService = {
   // 获取单个系统设置
   getSetting: async (key: string): Promise<SystemSetting | null> => {
     try {
-      return await request.get<SystemSetting>(`/api/SystemSetting/${key}`)
+      const response = await request.get<any>(`/api/SystemSetting/${key}`)
+      const data = unwrapApiResponse<any>(response)
+      return data || null
     } catch (error) {
       console.error(`Failed to load setting ${key}:`, error)
       return null
@@ -572,9 +584,10 @@ export const systemSettingsService = {
   updateSetting: async (key: string, value?: string): Promise<boolean> => {
     try {
       // 直接发送字符串值，后端期望接收 string 类型的 body
-      return await request.put<boolean>(`/api/SystemSetting/${key}`, value || '', {
+      const response = await request.put<any>(`/api/SystemSetting/${key}`, value ?? '', {
         headers: { 'Content-Type': 'application/json' }
       })
+      return unwrapApiResponse<boolean>(response) === true
     } catch (error) {
       console.error(`Failed to update setting ${key}:`, error)
       return false
@@ -584,7 +597,8 @@ export const systemSettingsService = {
   // 批量更新系统设置
   batchUpdateSettings: async (data: BatchUpdateSystemSettings): Promise<boolean> => {
     try {
-      return await request.put<boolean>('/api/SystemSetting/batch', data)
+      const response = await request.put<any>('/api/SystemSetting/batch', data)
+      return unwrapApiResponse<boolean>(response) === true
     } catch (error) {
       console.error('Failed to batch update settings:', error)
       return false
@@ -594,7 +608,8 @@ export const systemSettingsService = {
   // 创建新的系统设置
   createSetting: async (data: SystemSettingInput): Promise<SystemSetting | null> => {
     try {
-      return await request.post<SystemSetting>('/api/SystemSetting/', data)
+      const response = await request.post<any>('/api/SystemSetting/', data)
+      return unwrapApiResponse<SystemSetting>(response) || null
     } catch (error) {
       console.error('Failed to create setting:', error)
       return null
@@ -604,7 +619,8 @@ export const systemSettingsService = {
   // 删除系统设置
   deleteSetting: async (key: string): Promise<boolean> => {
     try {
-      return await request.delete<boolean>(`/api/SystemSetting/${key}`)
+      const response = await request.delete<any>(`/api/SystemSetting/${key}`)
+      return unwrapApiResponse<boolean>(response) === true
     } catch (error) {
       console.error(`Failed to delete setting ${key}:`, error)
       return false
@@ -614,7 +630,8 @@ export const systemSettingsService = {
   // 重置设置为默认值
   resetSetting: async (key: string): Promise<boolean> => {
     try {
-      return await request.post<boolean>(`/api/SystemSetting/${key}/reset`)
+      const response = await request.post<any>(`/api/SystemSetting/${key}/reset`)
+      return unwrapApiResponse<boolean>(response) === true
     } catch (error) {
       console.error(`Failed to reset setting ${key}:`, error)
       return false
@@ -633,8 +650,9 @@ export const systemSettingsService = {
   // 获取需要重启的设置项
   getRestartRequiredSettings: async (): Promise<string[]> => {
     try {
-      const response = await request.get<string[]>('/api/SystemSetting/restart-required')
-      return Array.isArray(response) ? response : []
+      const response = await request.get<any>('/api/SystemSetting/restart-required')
+      const data = unwrapApiResponse<any>(response)
+      return Array.isArray(data) ? data : []
     } catch (error) {
       console.error('Failed to load restart required settings:', error)
       return []
@@ -644,8 +662,9 @@ export const systemSettingsService = {
   // 导出系统设置
   exportSettings: async (): Promise<SystemSetting[]> => {
     try {
-      const response = await request.get<SystemSetting[]>('/api/SystemSetting/export')
-      return Array.isArray(response) ? response : []
+      const response = await request.get<any>('/api/SystemSetting/export')
+      const data = unwrapApiResponse<any>(response)
+      return Array.isArray(data) ? data : []
     } catch (error) {
       console.error('Failed to export settings:', error)
       return []
@@ -655,8 +674,8 @@ export const systemSettingsService = {
   // 验证配置值的有效性
   validateSettings: async (data: BatchUpdateSystemSettings): Promise<ValidationErrors> => {
     try {
-      const response = await request.post<ValidationErrors>('/api/SystemSetting/validate', data)
-      return response || {}
+      const response = await request.post<any>('/api/SystemSetting/validate', data)
+      return unwrapApiResponse<ValidationErrors>(response) || {}
     } catch (error) {
       console.error('Failed to validate settings:', error)
       return {}
@@ -666,7 +685,8 @@ export const systemSettingsService = {
   // 测试邮件配置
   testEmailSettings: async (params: EmailTestParams): Promise<SettingTestResult | null> => {
     try {
-      return await request.post<SettingTestResult>('/api/SystemSetting/test/email', params)
+      const response = await request.post<any>('/api/SystemSetting/test/email', params)
+      return unwrapApiResponse<SettingTestResult>(response) || null
     } catch (error) {
       console.error('Failed to test email settings:', error)
       return null
@@ -676,7 +696,8 @@ export const systemSettingsService = {
   // 测试AI API配置
   testAISettings: async (params: APITestParams): Promise<SettingTestResult | null> => {
     try {
-      return await request.post<SettingTestResult>('/api/SystemSetting/test/ai', params)
+      const response = await request.post<any>('/api/SystemSetting/test/ai', params)
+      return unwrapApiResponse<SettingTestResult>(response) || null
     } catch (error) {
       console.error('Failed to test AI settings:', error)
       return null
@@ -686,7 +707,8 @@ export const systemSettingsService = {
   // 测试数据库连接
   testDatabaseConnection: async (): Promise<SettingTestResult | null> => {
     try {
-      return await request.post<SettingTestResult>('/api/SystemSetting/test/database')
+      const response = await request.post<any>('/api/SystemSetting/test/database')
+      return unwrapApiResponse<SettingTestResult>(response) || null
     } catch (error) {
       console.error('Failed to test database connection:', error)
       return null
@@ -706,8 +728,8 @@ export const systemSettingsService = {
       if (settingKey) {
         params.append('settingKey', settingKey)
       }
-      const response = await request.get<PageDto<SettingChangeHistory>>(`/api/SystemSetting/history?${params}`)
-      return response || { total: 0, items: [] }
+      const response = await request.get<any>(`/api/SystemSetting/history?${params}`)
+      return unwrapApiResponse<PageDto<SettingChangeHistory>>(response) || { total: 0, items: [] }
     } catch (error) {
       console.error('Failed to load change history:', error)
       return { total: 0, items: [] }
@@ -717,7 +739,8 @@ export const systemSettingsService = {
   // 回滚设置到指定版本
   rollbackSetting: async (historyId: string): Promise<boolean> => {
     try {
-      return await request.post<boolean>(`/api/SystemSetting/rollback/${historyId}`)
+      const response = await request.post<any>(`/api/SystemSetting/rollback/${historyId}`)
+      return unwrapApiResponse<boolean>(response) === true
     } catch (error) {
       console.error(`Failed to rollback setting ${historyId}:`, error)
       return false

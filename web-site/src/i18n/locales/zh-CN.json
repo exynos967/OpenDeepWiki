@@ -77,6 +77,14 @@
   "home": {
     "title": "AI驱动的代码知识库",
     "subtitle": "AI驱动的代码知识库，支持代码分析、文档生成和知识图谱创建",
+    "hero": {
+      "tagline": "AI驱动的知识库"
+    },
+    "quickActions": {
+      "startGuide": "入门指南",
+      "apiDocs": "API文档",
+      "architecture": "系统架构"
+    },
     "search_placeholder": "搜索仓库名称或地址",
     "add_repository": "添加仓库",
     "query_last_repo": "查询最新仓库",
@@ -666,11 +674,16 @@
         "wikiGeneration": "Wiki生成"
       }
     },
+    "repository": {
+      "aiGenerationFailed": "AI生成失败："
+    },
     "roles": {
       "errors": {
         "loadFailed": "加载失败",
         "loadFailedDescription": "无法加载角色列表"
       },
+      "copyPermissionsFailed": "复制权限时出错：",
+      "copyAssignmentsFailed": "复制用户分配时出错：",
       "status": {
         "enabled": "启用",
         "disabled": "禁用"
@@ -768,6 +781,12 @@
     "title": "系统设置",
     "description": "配置和管理系统各项功能设置",
     "loadFailed": "加载设置失败",
+    "loadUserFailed": "加载用户信息失败：",
+    "loadSettingsFailed": "加载用户设置失败：",
+    "updateUserSuccess": "用户信息更新成功",
+    "updateSettingsSuccess": "用户设置更新成功",
+    "updateUserFailed": "用户信息更新失败：",
+    "updateSettingsFailed": "用户设置更新失败：",
     "saveSuccess": "设置保存成功",
     "saveFailed": "设置保存失败",
     "saveAll": "保存所有设置",
@@ -1537,24 +1556,6 @@
     "starCount": "{{count}}",
     "loading": "..."
   },
-  "home": {
-    "hero": {
-      "tagline": "AI驱动的知识库"
-    },
-    "quickActions": {
-      "startGuide": "入门指南",
-      "apiDocs": "API文档",
-      "architecture": "系统架构"
-    }
-  },
-  "settings": {
-    "loadUserFailed": "加载用户信息失败：",
-    "loadSettingsFailed": "加载用户设置失败：",
-    "updateUserSuccess": "用户信息更新成功",
-    "updateSettingsSuccess": "用户设置更新成功",
-    "updateUserFailed": "用户信息更新失败：",
-    "updateSettingsFailed": "用户设置更新失败："
-  },
   "auth": {
     "getUserFailed": "获取用户信息失败：",
     "getSocialFailed": "获取第三方登录方式失败：",
@@ -1563,14 +1564,5 @@
   },
   "warehouse": {
     "getBranchesFailed": "获取分支列表失败："
-  },
-  "admin": {
-    "repository": {
-      "aiGenerationFailed": "AI生成失败："
-    },
-    "roles": {
-      "copyPermissionsFailed": "复制权限时出错：",
-      "copyAssignmentsFailed": "复制用户分配时出错："
-    }
   }
 }

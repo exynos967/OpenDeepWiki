@@ -94,6 +94,17 @@ public class DynamicOptionsManager
             await _configService.GetValueAsync<bool>("RefineAndEnhanceQuality", true);
         DocumentOptions.EnableWarehouseCommit = await _configService.GetValueAsync<bool>("EnableWarehouseCommit", true);
         DocumentOptions.ReadMaxTokens = await _configService.GetValueAsync<int>("ReadMaxTokens", 90000);
+        DocumentOptions.Proxy = (await _configService.GetValueAsync<string>("Proxy"))?.Trim();
+
+        var docLanguage = (await _configService.GetValueAsync<string>("DocLanguage"))?.Trim();
+        if (!string.IsNullOrWhiteSpace(docLanguage))
+        {
+            KoalaWiki.KoalaWarehouse.DocumentPending.DocumentLanguageConfig.SetLanguage(docLanguage);
+        }
+        else
+        {
+            KoalaWiki.KoalaWarehouse.DocumentPending.DocumentLanguageConfig.Reset();
+        }
 
         _logger.LogDebug("Document配置已加载");
     }

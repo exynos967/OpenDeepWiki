@@ -23,15 +23,19 @@ public class PromptContext
         // 将model插入fileName到.md前面，如果文件不存在则删除model
         if (model != null && !string.IsNullOrEmpty(model))
         {
-            fileName = $"{model}_{fileName}";
-
-            if (!File.Exists(Path.Combine(ChatPrompt, fileName)))
+            var modelFileName = $"{model}_{fileName}";
+            if (!File.Exists(Path.Combine(ChatPrompt, modelFileName)))
             {
                 // 如果文件不存在，则删除model
                 fileName = name + ".md";
-                Log.Logger.Warning(
-                    "Chat prompt not found with model: {Model}, falling back to default name: {FileName}", model,
+                Log.Logger.Debug(
+                    "Model-specific chat prompt not found: {ModelFileName}. Falling back to: {FileName}",
+                    modelFileName,
                     fileName);
+            }
+            else
+            {
+                fileName = modelFileName;
             }
         }
 
@@ -56,15 +60,19 @@ public class PromptContext
         // 将model插入fileName到.md前面，如果文件不存在则删除model
         if (model != null && !string.IsNullOrEmpty(model))
         {
-            fileName = $"{model}_{fileName}";
-
-            if (!File.Exists(Path.Combine(Mem0Prompt, fileName)))
+            var modelFileName = $"{model}_{fileName}";
+            if (!File.Exists(Path.Combine(Mem0Prompt, modelFileName)))
             {
                 // 如果文件不存在，则删除model
                 fileName = name + ".md";
-                Log.Logger.Warning(
-                    "Chat prompt not found with model: {Model}, falling back to default name: {FileName}", model,
+                Log.Logger.Debug(
+                    "Model-specific Mem0 prompt not found: {ModelFileName}. Falling back to: {FileName}",
+                    modelFileName,
                     fileName);
+            }
+            else
+            {
+                fileName = modelFileName;
             }
         }
 
@@ -91,15 +99,19 @@ public class PromptContext
         // 将model插入fileName到.md前面，如果文件不存在则删除model
         if (model != null && !string.IsNullOrEmpty(model))
         {
-            fileName = $"{model}_{fileName}";
-
-            if (!File.Exists(Path.Combine(WarehousePrompt, fileName)))
+            var modelFileName = $"{model}_{fileName}";
+            if (!File.Exists(Path.Combine(WarehousePrompt, modelFileName)))
             {
                 // 如果文件不存在，则删除model
                 fileName = name + ".md";
-                Log.Logger.Warning(
-                    "Chat prompt not found with model: {Model}, falling back to default name: {FileName}", model,
+                Log.Logger.Debug(
+                    "Model-specific warehouse prompt not found: {ModelFileName}. Falling back to: {FileName}",
+                    modelFileName,
                     fileName);
+            }
+            else
+            {
+                fileName = modelFileName;
             }
         }
 

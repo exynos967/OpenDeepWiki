@@ -77,6 +77,14 @@
   "home": {
     "title": "AI-Powered Code Knowledge Base",
     "subtitle": "AI-driven code knowledge base supporting code analysis, documentation generation, and knowledge graph creation",
+    "hero": {
+      "tagline": "AI-Powered Knowledge Base"
+    },
+    "quickActions": {
+      "startGuide": "Start Guide",
+      "apiDocs": "API Documentation",
+      "architecture": "System Architecture"
+    },
     "search_placeholder": "Search repository name or address",
     "add_repository": "Add Repository",
     "query_last_repo": "Query Latest Repository",
@@ -666,11 +674,16 @@
         "wikiGeneration": "Wiki Generation"
       }
     },
+    "repository": {
+      "aiGenerationFailed": "AI generation failed:"
+    },
     "roles": {
       "errors": {
         "loadFailed": "Loading failed",
         "loadFailedDescription": "Failed to load role list"
       },
+      "copyPermissionsFailed": "Error copying permissions:",
+      "copyAssignmentsFailed": "Error copying user assignments:",
       "status": {
         "enabled": "Enabled",
         "disabled": "Disabled"
@@ -768,6 +781,12 @@
     "title": "System Settings",
     "description": "Configure and manage various system features and settings",
     "loadFailed": "Failed to load settings",
+    "loadUserFailed": "Failed to load user information:",
+    "loadSettingsFailed": "Failed to load user settings:",
+    "updateUserSuccess": "User information updated successfully",
+    "updateSettingsSuccess": "User settings updated successfully",
+    "updateUserFailed": "Failed to update user information:",
+    "updateSettingsFailed": "Failed to update user settings:",
     "saveSuccess": "Settings saved successfully",
     "saveFailed": "Settings save failed",
     "saveAll": "Save All Settings",
@@ -1537,24 +1556,6 @@
     "starCount": "{{count}}",
     "loading": "..."
   },
-  "home": {
-    "hero": {
-      "tagline": "AI-Powered Knowledge Base"
-    },
-    "quickActions": {
-      "startGuide": "Start Guide",
-      "apiDocs": "API Documentation",
-      "architecture": "System Architecture"
-    }
-  },
-  "settings": {
-    "loadUserFailed": "Failed to load user information:",
-    "loadSettingsFailed": "Failed to load user settings:",
-    "updateUserSuccess": "User information updated successfully",
-    "updateSettingsSuccess": "User settings updated successfully",
-    "updateUserFailed": "Failed to update user information:",
-    "updateSettingsFailed": "Failed to update user settings:"
-  },
   "auth": {
     "getUserFailed": "Failed to get user information:",
     "getSocialFailed": "Failed to get social login methods:",
@@ -1563,14 +1564,5 @@
   },
   "warehouse": {
     "getBranchesFailed": "Failed to get branch list:"
-  },
-  "admin": {
-    "repository": {
-      "aiGenerationFailed": "AI generation failed:"
-    },
-    "roles": {
-      "copyPermissionsFailed": "Error copying permissions:",
-      "copyAssignmentsFailed": "Error copying user assignments:"
-    }
   }
 }

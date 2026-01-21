@@ -494,3 +494,6 @@ $RECYCLE.BIN/
 *lock.json
 seo-web
 /src/KoalaWiki/wwwroot
+data/KoalaWiki.db
+data/KoalaWiki.db-shm
+data/KoalaWiki.db-wal

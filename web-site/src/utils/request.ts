@@ -3,7 +3,12 @@ import { fetchService } from '@/services/fetch'
 
 // 获取认证token
 const getAuthToken = () => {
-  return localStorage.getItem('auth-token') || ''
+  if (typeof window === 'undefined') return ''
+  return (
+    localStorage.getItem('userToken') ||
+    localStorage.getItem('auth-token') ||
+    ''
+  )
 }
 
 // 请求拦截器 - 添加认证头

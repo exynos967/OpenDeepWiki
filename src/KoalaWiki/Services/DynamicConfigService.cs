@@ -359,6 +359,9 @@ public class DynamicConfigService
             { "EnableIncrementalUpdate", new[] { "ENABLE_INCREMENTAL_UPDATE", "EnableIncrementalUpdate" } },
             { "EnableSmartFilter", new[] { "ENABLE_SMART_FILTER", "EnableSmartFilter" } },
             { "CatalogueFormat", new[] { "CATALOGUE_FORMAT", "CatalogueFormat" } },
+            { "ReadMaxTokens", new[] { "READ_MAX_TOKENS", "ReadMaxTokens" } },
+            { "Proxy", new[] { "GIT_PROXY", "Proxy" } },
+            { "DocLanguage", new[] { "DOC_LANGUAGE", "DocLanguage" } },
             { "EnableCodeDependencyAnalysis", new[] { "ENABLE_CODED_DEPENDENCY_ANALYSIS", "EnableCodeDependencyAnalysis" } },
             { "EnableWarehouseFunctionPromptTask", new[] { "ENABLE_WAREHOUSE_FUNCTION_PROMPT_TASK", "EnableWarehouseFunctionPromptTask" } },
             { "EnableWarehouseDescriptionTask", new[] { "ENABLE_WAREHOUSE_DESCRIPTION_TASK", "EnableWarehouseDescriptionTask" } },
@@ -394,6 +397,19 @@ public class DynamicConfigService
     {
         return new List<SystemSetting>
         {
+            // Basic配置
+            new() { Key = "siteName", Group = "Basic", ValueType = "string", Description = "站点名称", IsSensitive = false, RequiresRestart = false, DefaultValue = "OpenDeepWiki", Order = 1 },
+            new() { Key = "siteDescription", Group = "Basic", ValueType = "string", Description = "站点描述", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 2 },
+            new() { Key = "siteLogo", Group = "Basic", ValueType = "string", Description = "站点Logo", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 3 },
+            new() { Key = "favicon", Group = "Basic", ValueType = "string", Description = "网站图标", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 4 },
+            new() { Key = "copyRight", Group = "Basic", ValueType = "string", Description = "版权信息", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 5 },
+            new() { Key = "siteKeywords", Group = "Basic", ValueType = "string", Description = "站点关键词", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 6 },
+            new() { Key = "contactEmail", Group = "Basic", ValueType = "string", Description = "联系邮箱", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 7 },
+            new() { Key = "supportUrl", Group = "Basic", ValueType = "string", Description = "支持URL", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 8 },
+            new() { Key = "privacyPolicyUrl", Group = "Basic", ValueType = "string", Description = "隐私政策URL", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 9 },
+            new() { Key = "termsOfServiceUrl", Group = "Basic", ValueType = "string", Description = "服务条款URL", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 10 },
+            new() { Key = "analyticsCode", Group = "Basic", ValueType = "string", Description = "统计代码", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 11 },
+
             // OpenAI配置
             new() { Key = "ChatModel", Group = "OpenAI", ValueType = "string", Description = "聊天模型", IsSensitive = false, RequiresRestart = true, DefaultValue = "", Order = 1 },
             new() { Key = "AnalysisModel", Group = "OpenAI", ValueType = "string", Description = "分析模型", IsSensitive = false, RequiresRestart = true, DefaultValue = "", Order = 2 },
@@ -418,6 +434,9 @@ public class DynamicConfigService
             new() { Key = "ExcludedFolders", Group = "Document", ValueType = "array", Description = "排除的文件夹", IsSensitive = false, RequiresRestart = false, DefaultValue = GetDefaultExcludedFoldersJson(), Order = 19 },
             new() { Key = "EnableSmartFilter", Group = "Document", ValueType = "bool", Description = "启用智能过滤", IsSensitive = false, RequiresRestart = false, DefaultValue = "true", Order = 20 },
             new() { Key = "CatalogueFormat", Group = "Document", ValueType = "string", Description = "目录结构格式", IsSensitive = false, RequiresRestart = false, DefaultValue = "compact", Order = 21 },
+            new() { Key = "ReadMaxTokens", Group = "Document", ValueType = "int", Description = "读取文件内容的最大Token数", IsSensitive = false, RequiresRestart = false, DefaultValue = "80000", Order = 90 },
+            new() { Key = "Proxy", Group = "Document", ValueType = "string", Description = "Git代理设置", IsSensitive = false, RequiresRestart = false, DefaultValue = "", Order = 91 },
+            new() { Key = "DocLanguage", Group = "Document", ValueType = "string", Description = "文档生成默认语言", IsSensitive = false, RequiresRestart = false, DefaultValue = "zh-CN", Order = 92 },
             new() { Key = "EnableCodeDependencyAnalysis", Group = "Document", ValueType = "bool", Description = "启用代码依赖分析", IsSensitive = false, RequiresRestart = false, DefaultValue = "false", Order = 22 },
             new() { Key = "EnableWarehouseFunctionPromptTask", Group = "Document", ValueType = "bool", Description = "启用仓库功能提示任务", IsSensitive = false, RequiresRestart = false, DefaultValue = "true", Order = 23 },
             new() { Key = "EnableWarehouseDescriptionTask", Group = "Document", ValueType = "bool", Description = "启用仓库描述任务", IsSensitive = false, RequiresRestart = false, DefaultValue = "true", Order = 24 },

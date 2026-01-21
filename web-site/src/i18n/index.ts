@@ -42,6 +42,8 @@ i18n
   .init({
     resources,
     fallbackLng: 'zh-CN',
+    // admin 命名空间缺失的键，自动回退到 translation（主语言包）
+    fallbackNS: 'translation',
     debug: import.meta.env.DEV,
 
     // 语言检测选项

@@ -77,6 +77,14 @@
   "home": {
     "title": "AI 기반 코드 지식 베이스",
     "subtitle": "AI 기반 코드 지식 베이스로 코드 분석, 문서 생성 및 지식 그래프 생성 지원",
+    "hero": {
+      "tagline": "AI 기반 지식 베이스"
+    },
+    "quickActions": {
+      "startGuide": "시작 가이드",
+      "apiDocs": "API 문서",
+      "architecture": "시스템 아키텍처"
+    },
     "search_placeholder": "저장소 이름 또는 주소 검색",
     "add_repository": "저장소 추가",
     "query_last_repo": "최신 저장소 조회",
@@ -638,11 +646,16 @@
         "wikiGeneration": "Wiki 생성"
       }
     },
+    "repository": {
+      "aiGenerationFailed": "AI 생성 실패:"
+    },
     "roles": {
       "errors": {
         "loadFailed": "로딩 실패",
         "loadFailedDescription": "역할 목록을 로드할 수 없습니다"
       },
+      "copyPermissionsFailed": "권한 복사 오류:",
+      "copyAssignmentsFailed": "사용자 할당 복사 오류:",
       "status": {
         "enabled": "활성화",
         "disabled": "비활성화"
@@ -740,6 +753,12 @@
     "title": "시스템 설정",
     "description": "시스템의 다양한 기능을 구성하고 관리합니다",
     "loadFailed": "설정 로드 실패",
+    "loadUserFailed": "사용자 정보 로드 실패:",
+    "loadSettingsFailed": "사용자 설정 로드 실패:",
+    "updateUserSuccess": "사용자 정보 업데이트 성공",
+    "updateSettingsSuccess": "사용자 설정 업데이트 성공",
+    "updateUserFailed": "사용자 정보 업데이트 실패:",
+    "updateSettingsFailed": "사용자 설정 업데이트 실패:",
     "saveSuccess": "설정 저장 성공",
     "saveFailed": "설정 저장 실패",
     "saveAll": "모든 설정 저장",
@@ -1509,24 +1528,6 @@
     "starCount": "{{count}}",
     "loading": "..."
   },
-  "home": {
-    "hero": {
-      "tagline": "AI 기반 지식 베이스"
-    },
-    "quickActions": {
-      "startGuide": "시작 가이드",
-      "apiDocs": "API 문서",
-      "architecture": "시스템 아키텍처"
-    }
-  },
-  "settings": {
-    "loadUserFailed": "사용자 정보 로드 실패:",
-    "loadSettingsFailed": "사용자 설정 로드 실패:",
-    "updateUserSuccess": "사용자 정보 업데이트 성공",
-    "updateSettingsSuccess": "사용자 설정 업데이트 성공",
-    "updateUserFailed": "사용자 정보 업데이트 실패:",
-    "updateSettingsFailed": "사용자 설정 업데이트 실패:"
-  },
   "auth": {
     "getUserFailed": "사용자 정보 가져오기 실패:",
     "getSocialFailed": "소셜 로그인 방법 가져오기 실패:",
@@ -1535,14 +1536,5 @@
   },
   "warehouse": {
     "getBranchesFailed": "분기 목록 가져오기 실패:"
-  },
-  "admin": {
-    "repository": {
-      "aiGenerationFailed": "AI 생성 실패:"
-    },
-    "roles": {
-      "copyPermissionsFailed": "권한 복사 오류:",
-      "copyAssignmentsFailed": "사용자 할당 복사 오류:"
-    }
   }
 }

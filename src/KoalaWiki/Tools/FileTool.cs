@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
 using Microsoft.Extensions.AI;
 
 namespace KoalaWiki.Tools;
@@ -80,9 +78,12 @@ public class FileTool(string gitPath, List<string>? files)
          - Reading an non-existent file is also fine, and it will return an error.
          """)]
     public async Task<string> ReadFileFromLineAsync(
-        [Description(
-            "The Read File")]
-        ReadFileItemInput? item)
+        [Description("The relative address to be read")]
+        string filePath,
+        [Description("The line number to start reading from. Only provide if the file is too large to read at once")]
+        int offset = 0,
+        [Description("The number of lines to read. Only provide if the file is too large to read at once.")]
+        int limit = 200)
     {
         // 检查是否已达到文件读取限制
         if (DocumentOptions.ReadMaxTokens > 0 &&
@@ -99,7 +100,12 @@ public class FileTool(string gitPath, List<string>? files)
                    "</system-reminder>";
         }
 
-        return await ReadItem(item.FilePath, item.Offset, item.Limit);
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            return "<system-reminder>filePath is required.</system-reminder>";
+        }
+
+        return await ReadItem(filePath, offset, limit);
     }
 
 
@@ -186,22 +192,4 @@ public class FileTool(string gitPath, List<string>? files)
             return $"Error reading file: {ex.Message}";
         }
     }
-}
-
-public class ReadFileItemInput
-{
-    [Description(
-        "The relative address to be read")]
-    [JsonPropertyName("filePath")]
-    public string FilePath { get; set; }
-
-    [Description(
-        "The line number to start reading from. Only provide if the file is too large to read at once")]
-    [JsonPropertyName("offset")]
-    public int Offset { get; set; } = 0;
-
-    [Description(
-        "The number of lines to read. Only provide if the file is too large to read at once.")]
-    [JsonPropertyName("limit")]
-    public int Limit { get; set; } = 200;
 }

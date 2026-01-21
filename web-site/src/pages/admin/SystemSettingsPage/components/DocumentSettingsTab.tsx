@@ -260,14 +260,14 @@ const DocumentSettingsTab: React.FC<DocumentSettingsTabProps> = ({
                 <Label htmlFor="defaultLanguage">{t('settings.document.defaultLanguage')}</Label>
                 <Input
                   id="defaultLanguage"
-                  value={getSettingValue('defaultLanguage')}
-                  onChange={(e) => onUpdate('defaultLanguage', e.target.value)}
+                  value={getSettingValue('DocLanguage')}
+                  onChange={(e) => onUpdate('DocLanguage', e.target.value)}
                   placeholder={t('settings.document.defaultLanguagePlaceholder')}
                   disabled={loading}
-                  className={validationErrors.defaultLanguage ? 'border-destructive' : ''}
+                  className={validationErrors.DocLanguage ? 'border-destructive' : ''}
                 />
-                {validationErrors.defaultLanguage ? (
-                  <p className="text-sm text-destructive">{validationErrors.defaultLanguage}</p>
+                {validationErrors.DocLanguage ? (
+                  <p className="text-sm text-destructive">{validationErrors.DocLanguage}</p>
                 ) : (
                   <p className="text-sm text-muted-foreground">设置生成文档时使用的默认语言，而非编程语言</p>
                 )}
